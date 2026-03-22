@@ -3,113 +3,74 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import FractalOrb from '@/components/FractalOrb'
-import GlassTile from '@/components/GlassTile'
-
-// ── SVG Logo marks ──────────────────────────────────────────────────────────
-
-function LighthouseLogo() {
-  return (
-    <div className="relative w-[72px] h-[72px] rounded-2xl overflow-hidden flex items-center justify-center">
-      <Image
-        src="/csm-logo.jpg"
-        alt="Coastal Solutions Media"
-        fill
-        className="object-contain"
-        sizes="72px"
-      />
-    </div>
-  )
-}
-
-function FlowClawLogos() {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="relative w-[60px] h-[48px] rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0">
-        <Image
-          src="/coastaflow-logo.jpg"
-          alt="CoastaFlow"
-          fill
-          className="object-contain"
-          sizes="60px"
-        />
-      </div>
-      <div className="relative w-[54px] h-[54px] rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0">
-        <Image
-          src="/coastaclaw-logo.jpg"
-          alt="CoastaClaw"
-          fill
-          className="object-contain"
-          sizes="54px"
-        />
-      </div>
-    </div>
-  )
-}
-
-// ── Tiles data ───────────────────────────────────────────────────────────────
+import { ArrowRight } from 'lucide-react'
 
 const tiles = [
   {
-    logo: <LighthouseLogo />,
-    title: 'Coastal Solutions Media',
-    titleAccent: null,
+    name: 'Coastal Solutions Media',
+    tagline: 'Media that builds brands.',
     description:
-      'Media that builds brands. Content, video, social, and digital presence for modern businesses.',
+      'Content, video, social, and digital presence for modern businesses.',
     url: 'https://www.coastalsolutionsmedia.com',
-    accentColor: 'teal' as const,
+    logoSrc: '/csm-logo.jpg',
+    logoAlt: 'Coastal Solutions Media',
+    accent: 'teal',
   },
   {
-    logo: <FlowClawLogos />,
-    title: (
-      <>
-        <span className="text-cyan-400">Coasta</span>
-        <span className="text-cf-blue">Flow</span>
-        {' + '}
-        <span className="text-cf-blue">Coasta</span>
-        <span className="text-cf-red">Claw</span>
-      </>
-    ),
-    titleAccent: null,
+    name: 'CoastaFlow + CoastaClaw',
+    tagline: 'AI-powered business systems.',
     description:
-      'AI-powered business systems, automation, CRM infrastructure, and digital workforce solutions.',
+      'Automation, CRM infrastructure, and digital workforce solutions.',
     url: 'https://www.coastaflow.ai',
-    accentColor: 'teal' as const,
+    logoSrc: '/coastaflow-logo.jpg',
+    logoAlt: 'CoastaFlow',
+    accent: 'blue',
   },
   {
-    logo: (
-      <div className="relative w-[70px] h-[70px] rounded-xl overflow-hidden flex items-center justify-center">
-        <Image
-          src="/lowcountry-logo.jpg"
-          alt="Lowcountry Unscripted"
-          fill
-          className="object-contain"
-          sizes="70px"
-        />
-      </div>
-    ),
-    title: (
-      <span className="text-indigo-400">Lowcountry Unscripted</span>
-    ),
-    titleAccent: null,
+    name: 'Lowcountry Unscripted',
+    tagline: 'Real stories. Real people.',
     description:
-      'Real conversations, real people, real stories from the Lowcountry.',
+      'Real conversations from the Lowcountry.',
     url: 'https://www.lowcountryunscripted.com',
-    accentColor: 'periwinkle' as const,
+    logoSrc: '/lowcountry-logo.jpg',
+    logoAlt: 'Lowcountry Unscripted',
+    accent: 'periwinkle',
   },
 ]
 
-// ── Component ────────────────────────────────────────────────────────────────
+const accentMap = {
+  teal: {
+    name: 'text-cyan-400',
+    nameAccent: 'text-cyan-400',
+    border: 'rgba(20, 184, 166, 0.2)',
+    borderHover: 'rgba(20, 184, 166, 0.5)',
+    arrow: 'text-cyan-400/60 group-hover:text-cyan-400',
+    glow: 'rgba(20, 184, 166, 0.12)',
+  },
+  blue: {
+    name: 'text-cf-blue',
+    nameAccent: 'text-cf-blue',
+    border: 'rgba(46, 142, 234, 0.2)',
+    borderHover: 'rgba(46, 142, 234, 0.5)',
+    arrow: 'text-cf-blue/60 group-hover:text-cf-blue',
+    glow: 'rgba(46, 142, 234, 0.12)',
+  },
+  periwinkle: {
+    name: 'text-indigo-400',
+    nameAccent: 'text-indigo-400',
+    border: 'rgba(129, 140, 248, 0.2)',
+    borderHover: 'rgba(129, 140, 248, 0.5)',
+    arrow: 'text-indigo-400/60 group-hover:text-indigo-400',
+    glow: 'rgba(129, 140, 248, 0.12)',
+  },
+}
 
 export default function LandingHub() {
   return (
     <>
-      {/* 3D Background */}
       <FractalOrb />
-
-      {/* Noise overlay */}
       <div className="noise-overlay" />
 
-      {/* Main layout */}
       <div className="relative z-10 min-h-screen flex flex-col">
 
         {/* Header */}
@@ -126,7 +87,6 @@ export default function LandingHub() {
             </span>
           </motion.div>
 
-          {/* Hero headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,25 +108,101 @@ export default function LandingHub() {
 
         {/* Tile grid */}
         <main className="flex-1 flex items-center justify-center px-6 pb-20">
-          <div className="w-full max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-              {tiles.map((tile, i) => (
-                <GlassTile key={i} {...tile} index={i} />
-              ))}
+          <div className="w-full max-w-5xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+              {tiles.map((tile, i) => {
+                const a = accentMap[tile.accent as keyof typeof accentMap]
+                return (
+                  <motion.a
+                    key={tile.name}
+                    href={tile.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col items-center text-center no-underline"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.15 + i * 0.12,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }}
+                  >
+                    {/* Tile card */}
+                    <div
+                      className="w-full flex flex-col items-center px-8 py-10 rounded-3xl transition-all duration-500 relative"
+                      style={{
+                        background: 'rgba(0, 0, 0, 0.55)',
+                        backdropFilter: 'blur(24px)',
+                        WebkitBackdropFilter: 'blur(24px)',
+                        border: `1px solid ${a.border}`,
+                        boxShadow: `0 0 0 0 ${a.glow}`,
+                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(0, 0, 0, 0.75)'
+                        e.currentTarget.style.border = `1px solid ${a.borderHover}`
+                        e.currentTarget.style.boxShadow = `0 0 50px ${a.glow}, 0 30px 60px rgba(0,0,0,0.5)`
+                        e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'rgba(0, 0, 0, 0.55)'
+                        e.currentTarget.style.border = `1px solid ${a.border}`
+                        e.currentTarget.style.boxShadow = `0 0 0 0 ${a.glow}`
+                        e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                      }}
+                    >
+                      {/* Logo — raw, no container */}
+                      <div className="relative mb-8" style={{ width: 120, height: 80 }}>
+                        <Image
+                          src={tile.logoSrc}
+                          alt={tile.logoAlt}
+                          fill
+                          className="object-contain"
+                          sizes="120px"
+                        />
+                      </div>
+
+                      {/* Divider */}
+                      <div
+                        className="w-8 h-px mb-6 rounded-full"
+                        style={{ background: a.border }}
+                      />
+
+                      {/* Tagline */}
+                      <p className={`text-xs font-semibold tracking-[0.2em] uppercase mb-3 ${a.name}`}>
+                        {tile.tagline}
+                      </p>
+
+                      {/* Name */}
+                      <h2 className={`text-xl md:text-2xl font-bold font-display mb-4 leading-tight ${a.name}`}>
+                        {tile.name}
+                      </h2>
+
+                      {/* Description */}
+                      <p className="text-sm text-white/45 leading-relaxed mb-8 max-w-[220px]">
+                        {tile.description}
+                      </p>
+
+                      {/* Enter arrow */}
+                      <div className={`flex items-center gap-2 ${a.arrow} transition-all duration-300`}>
+                        <span className="text-xs font-semibold tracking-widest uppercase">Enter</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </motion.a>
+                )
+              })}
+
             </div>
           </div>
         </main>
 
         {/* Footer */}
         <footer className="pb-10 text-center">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-xs text-white/20 tracking-wide"
-          >
+          <p className="text-xs text-white/20 tracking-wide">
             &copy; {new Date().getFullYear()} Coastal Solutions Media. All rights reserved.
-          </motion.p>
+          </p>
         </footer>
       </div>
     </>
