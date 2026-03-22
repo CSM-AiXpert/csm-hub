@@ -104,7 +104,7 @@ export default function LandingHub() {
 
         {/* Tiles — horizontal row, vertical cards, breathing room */}
         <main className="flex-1 flex items-start justify-center px-10 pb-20">
-          <div className="flex flex-wrap items-start justify-center gap-12">
+          <div className="flex flex-wrap items-start justify-center gap-16">
 
             {tiles.map((tile, i) => (
               <motion.a
@@ -122,7 +122,7 @@ export default function LandingHub() {
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
               >
-                {/* Vertical card — 9:16 ratio, sharp-ish corners, big breathing room */}
+                {/* Vertical card — 9:16 ratio, sharp corners, breathing room */}
                 <div
                   className="card-inner flex flex-col items-center text-center px-5 pt-10 pb-8"
                   style={{
@@ -186,26 +186,23 @@ export default function LandingHub() {
                   {/* Divider */}
                   <div className="w-10 h-px rounded-full mb-5" style={{ background: tile.borderColor }} />
 
-                  {/* Tagline */}
-                  <p className={`text-[10px] font-bold tracking-[0.22em] uppercase mb-3 ${tile.textColor}`}>
+                  {/* Tagline — neon teal */}
+                  <p className="text-[10px] font-bold tracking-[0.22em] uppercase mb-3 text-cyan-400">
                     {tile.tagline}
                   </p>
 
-                  {/* Name */}
+                  {/* Name — per-tile color */}
                   <h2 className={`text-base font-bold font-display mb-4 leading-tight px-1 ${tile.textColor}`}>
                     {tile.name}
                   </h2>
 
-                  {/* Description */}
-                  <p className="text-xs text-white/45 leading-relaxed px-2 mb-auto">
+                  {/* Description — neon teal */}
+                  <p className="text-xs leading-relaxed px-2 mb-auto" style={{ color: 'rgba(34, 211, 238, 0.6)' }}>
                     {tile.description}
                   </p>
 
-                  {/* Enter */}
-                  <div
-                    className="flex items-center gap-2 mt-6 transition-all duration-300"
-                    style={{ color: tile.textColor, opacity: 0.7 }}
-                  >
+                  {/* Enter — neon teal */}
+                  <div className="flex items-center gap-2 mt-6 transition-all duration-300 text-cyan-400" style={{ opacity: 0.75 }}>
                     <span className="text-[10px] font-semibold tracking-widest uppercase">Enter</span>
                     <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
