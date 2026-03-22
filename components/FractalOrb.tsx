@@ -243,7 +243,7 @@ function Particles() {
 
 export default function FractalOrb() {
   return (
-    <div className="fixed inset-0 -z-10">
+    <div style={{ position: 'fixed', inset: 0, zIndex: -10, width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <Canvas
         dpr={[1, 1.8]}
         camera={{ position: [0, 0, 9], fov: 45 }}
