@@ -12,7 +12,7 @@ const CF_RED = '#DD2C2C'
 
 const tiles = [
   {
-    tagline: 'Media that builds brands.',
+    tagline: 'Solutions beyond horizons.',
     description: 'Content, video, social, and digital presence for modern businesses.',
     url: 'https://www.coastalsolutionsmedia.com',
     logoSrc: '/csm-logo.png',
