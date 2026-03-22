@@ -7,23 +7,17 @@ import GlassTile from '@/components/GlassTile'
 
 // ── SVG Logo marks ──────────────────────────────────────────────────────────
 
-function LighthouseIcon() {
+function LighthouseLogo() {
   return (
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M22 4 L26 18 L38 18 L28 26 L32 40 L22 30 L12 40 L16 26 L6 18 L18 18 Z"
-        fill="none"
-        stroke="#2E8EEA"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-        opacity="0.6"
+    <div className="relative w-[72px] h-[72px] rounded-2xl overflow-hidden flex items-center justify-center">
+      <Image
+        src="/csm-logo.jpg"
+        alt="Coastal Solutions Media"
+        fill
+        className="object-contain"
+        sizes="72px"
       />
-      <rect x="18" y="22" width="8" height="16" rx="2" fill="#2E8EEA" opacity="0.8" />
-      <rect x="16" y="20" width="12" height="4" rx="1.5" fill="#2E8EEA" />
-      <circle cx="22" cy="16" r="3" fill="#2E8EEA" />
-      <circle cx="22" cy="16" r="5" fill="none" stroke="#2E8EEA" strokeWidth="1" opacity="0.4" />
-      <circle cx="22" cy="16" r="8" fill="none" stroke="#2E8EEA" strokeWidth="0.5" opacity="0.2" />
-    </svg>
+    </div>
   )
 }
 
@@ -71,7 +65,7 @@ function WaveIcon() {
 
 const tiles = [
   {
-    logo: <LighthouseIcon />,
+    logo: <LighthouseLogo />,
     title: 'Coastal Solutions Media',
     titleAccent: null,
     description:
