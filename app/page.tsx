@@ -170,13 +170,13 @@ export default function LandingHub() {
                     }}
                   />
 
-                  {/* Logos — top area */}
+                  {/* Logos — centered, top area */}
                   <div className="absolute left-0 right-0 flex flex-col items-center z-10" style={{ top: 16 }}>
-                    <div style={{ width: 120, height: 72, position: 'relative' }}>
+                    <div className="mx-auto" style={{ width: 120, height: 72, position: 'relative' }}>
                       <Image src={tile.logoSrc} alt={tile.logoAlt} fill className="object-contain" sizes="120px" />
                     </div>
                     {tile.logoSrc2 && (
-                      <div style={{ width: 96, height: 60, position: 'relative', marginTop: 8 }}>
+                      <div className="mx-auto" style={{ width: 96, height: 60, position: 'relative', marginTop: 8 }}>
                         <Image src={tile.logoSrc2} alt={tile.logoAlt2!} fill className="object-contain" sizes="96px" />
                       </div>
                     )}
