@@ -191,8 +191,11 @@ export default function LandingHub() {
                     </div>
                   )}
 
+                  {/* Spacer to center text block */}
+                  <div className="flex-1" />
+
                   {/* Divider */}
-                  <div className="w-8 h-px rounded-full mb-3" style={{ background: tile.borderColor }} />
+                  <div className="w-8 h-px rounded-full mb-4" style={{ background: tile.borderColor }} />
 
                   {/* Tagline — neon teal */}
                   <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-2" style={{ color: NEON_TEAL }}>
@@ -213,13 +216,13 @@ export default function LandingHub() {
                   )}
 
                   {/* Description — neon teal */}
-                  <p className="text-[11px] leading-relaxed px-1 mb-auto" style={{ color: 'rgba(34, 211, 238, 0.65)' }}>
+                  <p className="text-[11px] leading-relaxed px-1 mb-3" style={{ color: 'rgba(34, 211, 238, 0.65)' }}>
                     {tile.description}
                   </p>
 
-                  {/* Enter — neon green, pinned to bottom */}
+                  {/* Enter — neon green */}
                   <div
-                    className="flex items-center gap-1.5 mt-4 transition-all duration-300"
+                    className="flex items-center gap-1.5 transition-all duration-300"
                     style={{ color: NEON_GREEN }}
                   >
                     <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: NEON_GREEN }}>
@@ -230,6 +233,9 @@ export default function LandingHub() {
                       style={{ color: NEON_GREEN }}
                     />
                   </div>
+
+                  {/* Bottom spacer */}
+                  <div className="flex-1" />
                 </div>
               </motion.a>
             ))}
