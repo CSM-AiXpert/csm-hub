@@ -82,7 +82,15 @@ export default function LandingHub() {
               boxShadow: `0 0 8px ${NEON_TEAL}, 0 0 16px ${NEON_TEAL}`,
             }} />
             <span className="text-xs font-semibold tracking-[0.18em] uppercase" style={{ color: NEON_TEAL }}>
-              Coastal Solutions Media
+              Coastal{' '}
+              <span style={{
+                color: '#FF0000',
+                animation: 'rainbow-solutions 4s linear infinite',
+                display: 'inline-block',
+              }}>
+                Solutions
+              </span>
+              {' '}Media
             </span>
           </motion.div>
 

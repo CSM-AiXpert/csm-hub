@@ -199,3 +199,13 @@ body {
     }
   }
 }
+
+@keyframes rainbow-solutions {
+  0%   { color: #FF0000; text-shadow: 0 0 10px rgba(255,0,0,0.8); }
+  16%  { color: #FF7F00; text-shadow: 0 0 10px rgba(255,127,0,0.8); }
+  33%  { color: #FFFF00; text-shadow: 0 0 10px rgba(255,255,0,0.8); }
+  50%  { color: #00FF00; text-shadow: 0 0 10px rgba(0,255,0,0.8); }
+  66%  { color: #0000FF; text-shadow: 0 0 10px rgba(0,0,255,0.8); }
+  83%  { color: #8B00FF; text-shadow: 0 0 10px rgba(139,0,255,0.8); }
+  100% { color: #FF0000; text-shadow: 0 0 10px rgba(255,0,0,0.8); }
+}
