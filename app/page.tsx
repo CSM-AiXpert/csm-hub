@@ -11,56 +11,51 @@ const tiles = [
     tagline: 'Media that builds brands.',
     description: 'Content, video, social, and digital presence for modern businesses.',
     url: 'https://www.coastalsolutionsmedia.com',
-    logoSrc: '/csm-logo.jpg',
+    logoSrc: '/csm-logo.png',
     logoAlt: 'Coastal Solutions Media',
-    accent: 'teal',
-    nameColor: 'text-cyan-400',
+    accentColor: 'teal',
   },
   {
-    name: 'CoastaFlow',
+    name: (
+      <>
+        <span className="text-cf-blue">CoastaFlow</span>
+        {' + '}
+        <span className="text-cf-red">CoastaClaw</span>
+      </>
+    ),
     tagline: 'AI-powered business systems.',
     description: 'Automation, CRM infrastructure, and digital workforce solutions.',
     url: 'https://www.coastaflow.ai',
-    logoSrc: '/coastaflow-logo.jpg',
+    logoSrc: '/coastaflow-logo.png',
     logoAlt: 'CoastaFlow',
-    accent: 'blue',
-    nameColor: 'text-cf-blue',
-  },
-  {
-    name: 'CoastaClaw',
-    tagline: 'AI-driven automation.',
-    description: 'Intelligent workflows and digital systems that work while you sleep.',
-    url: 'https://www.coastaflow.ai',
-    logoSrc: '/coastaclaw-logo.jpg',
-    logoAlt: 'CoastaClaw',
-    accent: 'red',
-    nameColor: 'text-cf-red',
+    logoSrc2: '/coastaclaw-logo.png',
+    logoAlt2: 'CoastaClaw',
+    accentColor: 'blue',
   },
   {
     name: 'Lowcountry Unscripted',
     tagline: 'Real stories. Real people.',
     description: 'Real conversations from the Lowcountry.',
     url: 'https://www.lowcountryunscripted.com',
-    logoSrc: '/lowcountry-logo.jpg',
+    logoSrc: '/lowcountry-logo.png',
     logoAlt: 'Lowcountry Unscripted',
-    accent: 'periwinkle',
-    nameColor: 'text-indigo-400',
+    accentColor: 'periwinkle',
   },
 ]
 
 const glowMap = {
-  teal:    { border: 'rgba(20, 184, 166, 0.2)',  borderH: 'rgba(20, 184, 166, 0.55)',  glow: 'rgba(20, 184, 166, 0.1)'  },
-  blue:    { border: 'rgba(46, 142, 234, 0.2)',  borderH: 'rgba(46, 142, 234, 0.55)',  glow: 'rgba(46, 142, 234, 0.1)'  },
-  red:     { border: 'rgba(221, 44, 44, 0.2)',   borderH: 'rgba(221, 44, 44, 0.55)',   glow: 'rgba(221, 44, 44, 0.1)'  },
-  periwinkle: { border: 'rgba(129, 140, 248, 0.2)', borderH: 'rgba(129, 140, 248, 0.55)', glow: 'rgba(129, 140, 248, 0.1)' },
+  teal:       { border: 'rgba(20, 184, 166, 0.25)',  borderH: 'rgba(20, 184, 166, 0.6)',  glow: 'rgba(20, 184, 166, 0.12)',  text: 'text-cyan-400'     },
+  blue:       { border: 'rgba(46, 142, 234, 0.25)', borderH: 'rgba(46, 142, 234, 0.6)',  glow: 'rgba(46, 142, 234, 0.12)', text: 'text-cf-blue'      },
+  periwinkle: { border: 'rgba(129, 140, 248, 0.25)', borderH: 'rgba(129, 140, 248, 0.6)', glow: 'rgba(129, 140, 248, 0.12)', text: 'text-indigo-400'  },
 }
 
 export default function LandingHub() {
   return (
     <>
+      {/* 3D background — centered, hot pink wireframe, dark blue core */}
       <FractalOrb />
-      <div className="noise-overlay" />
 
+      {/* Main layout */}
       <div className="relative z-10 min-h-screen flex flex-col">
 
         {/* Header */}
@@ -96,35 +91,33 @@ export default function LandingHub() {
           </motion.p>
         </header>
 
-        {/* Tile grid — four tiles, horizontal wrap */}
+        {/* Three tiles, horizontal */}
         <main className="flex-1 flex items-center justify-center px-6 pb-20">
-          <div className="w-full max-w-7xl">
-            <div className="flex flex-wrap items-stretch justify-center gap-8">
+          <div className="w-full max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
               {tiles.map((tile, i) => {
-                const g = glowMap[tile.accent as keyof typeof glowMap]
+                const g = glowMap[tile.accentColor as keyof typeof glowMap]
                 return (
                   <motion.a
-                    key={tile.name}
+                    key={i}
                     href={tile.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex flex-col items-center text-center no-underline flex-1 min-w-[200px] max-w-[280px]"
-                    initial={{ opacity: 0, y: 50 }}
+                    className="group flex flex-col items-center text-center no-underline"
+                    initial={{ opacity: 0, y: 60 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 0.8,
-                      delay: 0.1 + i * 0.1,
+                      duration: 0.9,
+                      delay: 0.1 + i * 0.13,
                       ease: [0.25, 0.1, 0.25, 1],
                     }}
                   >
-                    {/* Card */}
+                    {/* Card — solid dark, NO blur */}
                     <div
-                      className="tile-card w-full flex flex-col items-center px-7 py-9 rounded-3xl"
+                      className="tile-card w-full flex flex-col items-center px-6 py-10 rounded-3xl"
                       style={{
-                        background: 'rgba(0, 0, 0, 0.6)',
-                        backdropFilter: 'blur(28px)',
-                        WebkitBackdropFilter: 'blur(28px)',
+                        background: 'rgba(0, 0, 0, 0.65)',
                         border: `1px solid ${g.border}`,
                         boxShadow: `0 0 0 0 ${g.glow}`,
                         transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -134,62 +127,67 @@ export default function LandingHub() {
                       onMouseEnter={(e) => {
                         const el = e.currentTarget as HTMLDivElement
                         el.style.border = `1px solid ${g.borderH}`
-                        el.style.boxShadow = `0 0 60px ${g.glow}, 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)`
-                        el.style.transform = 'translateY(-12px) scale(1.03)'
-                        el.style.background = 'rgba(0, 0, 0, 0.75)'
+                        el.style.boxShadow = `0 0 80px ${g.glow}, 0 40px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06)`
+                        el.style.transform = 'translateY(-14px) scale(1.04)'
+                        el.style.background = 'rgba(0, 0, 0, 0.8)'
                       }}
                       onMouseLeave={(e) => {
                         const el = e.currentTarget as HTMLDivElement
                         el.style.border = `1px solid ${g.border}`
                         el.style.boxShadow = `0 0 0 0 ${g.glow}`
                         el.style.transform = 'translateY(0) scale(1)'
-                        el.style.background = 'rgba(0, 0, 0, 0.6)'
+                        el.style.background = 'rgba(0, 0, 0, 0.65)'
                       }}
                     >
-                      {/* Glow fill from bottom */}
+                      {/* Subtle bottom glow */}
                       <div
-                        className="pointer-events-none absolute bottom-0 left-0 right-0 rounded-b-3xl"
+                        className="pointer-events-none absolute bottom-0 left-0 right-0"
                         style={{
-                          height: '50%',
+                          height: '40%',
                           background: `radial-gradient(ellipse at 50% 100%, ${g.glow} 0%, transparent 70%)`,
-                          transition: 'opacity 0.5s',
                         }}
                       />
 
-                      {/* Logo — JPG bg stripped via mix-blend-mode */}
-                      <div
-                        className="relative mb-8"
-                        style={{ width: 130, height: 90 }}
-                      >
-                        <div
-                          className="absolute inset-0 rounded-xl"
-                          style={{
-                            background: 'rgba(0,0,0,0.5)',
-                            backdropFilter: 'blur(8px)',
-                          }}
-                        />
-                        <Image
-                          src={tile.logoSrc}
-                          alt={tile.logoAlt}
-                          fill
-                          className="object-contain relative z-10"
-                          sizes="130px"
-                          style={{ mixBlendMode: 'multiply' }}
-                        />
+                      {/* Logos */}
+                      <div className="relative z-10 flex flex-col items-center gap-4 mb-6">
+                        {/* Primary logo */}
+                        <div className="relative" style={{ width: 140, height: 80 }}>
+                          <Image
+                            src={tile.logoSrc}
+                            alt={tile.logoAlt}
+                            fill
+                            className="object-contain"
+                            sizes="140px"
+                          />
+                        </div>
+
+                        {/* Second logo (CoastaClaw) */}
+                        {tile.logoSrc2 && (
+                          <div className="relative" style={{ width: 120, height: 72 }}>
+                            <Image
+                              src={tile.logoSrc2}
+                              alt={tile.logoAlt2!}
+                              fill
+                              className="object-contain"
+                              sizes="120px"
+                            />
+                          </div>
+                        )}
                       </div>
 
+                      {/* Divider */}
+                      <div
+                        className="w-10 h-px rounded-full mb-5"
+                        style={{ background: g.border }}
+                      />
+
                       {/* Tagline */}
-                      <p
-                        className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
-                        style={{ color: tile.nameColor }}
-                      >
+                      <p className={`text-xs font-bold tracking-[0.22em] uppercase mb-3 ${g.text}`}>
                         {tile.tagline}
                       </p>
 
                       {/* Name */}
-                      <h2
-                        className={`text-xl md:text-2xl font-bold font-display mb-4 leading-tight ${tile.nameColor}`}
-                      >
+                      <h2 className={`text-xl md:text-2xl font-bold font-display mb-4 leading-tight ${g.text}`}>
                         {tile.name}
                       </h2>
 
@@ -201,10 +199,13 @@ export default function LandingHub() {
                       {/* Enter */}
                       <div
                         className="flex items-center gap-2 transition-all duration-300"
-                        style={{ color: tile.nameColor, opacity: 0.7 }}
+                        style={{ color: 'inherit', opacity: 0.65 }}
                       >
-                        <span className="text-xs font-semibold tracking-widest uppercase">Enter</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                        <span className={`text-xs font-semibold tracking-widest uppercase ${g.text}`}>Enter</span>
+                        <ArrowRight
+                          className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                          style={{ color: 'inherit' }}
+                        />
                       </div>
                     </div>
                   </motion.a>

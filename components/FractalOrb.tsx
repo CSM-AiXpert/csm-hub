@@ -9,107 +9,61 @@ const vertexShader = `
 varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 vViewPosition;
-varying vec3 vWorldPosition;
 
 void main() {
   vUv = uv;
   vNormal = normalize(normalMatrix * normal);
   vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
   vViewPosition = mvPosition.xyz;
-  vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
   gl_Position = projectionMatrix * mvPosition;
 }
 `
 
 const fragmentShader = `
 uniform float uTime;
-uniform vec3 uColorCyan;
-uniform vec3 uColorBlue;
-uniform vec3 uColorRed;
+uniform vec3 uColorPink;
+uniform vec3 uColorCore;
 
 varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 vViewPosition;
-varying vec3 vWorldPosition;
-
-float hash(vec2 p) {
-  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-}
-
-float noise(vec2 p) {
-  vec2 i = floor(p);
-  vec2 f = fract(p);
-  f = f * f * (3.0 - 2.0 * f);
-  return mix(
-    mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-    mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
-    f.y
-  );
-}
-
-float fbm(vec2 p) {
-  float v = 0.0;
-  float a = 0.5;
-  for (int i = 0; i < 5; i++) {
-    v += a * noise(p);
-    p *= 2.0;
-    a *= 0.5;
-  }
-  return v;
-}
 
 void main() {
-  // Deep space base
-  vec3 baseColor = vec3(0.01, 0.015, 0.03);
+  vec3 baseColor = vec3(0.01, 0.02, 0.05);
 
-  // Layered FBM for organic energy feel
-  vec2 q = vec2(fbm(vUv * 3.0 + uTime * 0.1), fbm(vUv * 3.0 + vec2(1.0)));
-  vec2 r = vec2(fbm(vUv * 4.0 + q + vec2(1.7, 9.2) + 0.12 * uTime), fbm(vUv * 4.0 + q + vec2(8.3, 2.8) + 0.11 * uTime));
-  float f = fbm(vUv * 2.0 + r);
-
-  // Energy core glow
-  float energyPulse = f * f * f * f * 4.0;
-  vec3 energyColor = mix(uColorCyan, uColorBlue, f);
-  energyColor = mix(energyColor, uColorRed, pow(f, 3.0) * 0.3);
-
-  // Lighting
   vec3 normal = normalize(vNormal);
   vec3 viewDir = normalize(-vViewPosition);
 
+  // Main key light
   vec3 mainLightDir = normalize(vec3(1.5, 2.0, 1.0));
-  vec3 fillLightDir = normalize(vec3(-1.5, -0.5, -2.0));
-
   float mainDiff = max(dot(normal, mainLightDir), 0.0);
-  float fillDiff = max(dot(normal, fillLightDir), 0.0) * 0.25;
 
+  // Specular
   vec3 reflectDir = reflect(-mainLightDir, normal);
   float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128.0);
 
-  // Rim / fresnel
-  float fresnel = pow(1.0 - max(dot(viewDir, normal), 0.0), 3.5);
-  vec3 rimLight = mix(uColorCyan, uColorRed, fresnel) * fresnel * 1.8;
+  // Bright pink wireframe lines via UV
+  float wire1 = abs(fract(vUv.x * 40.0) - 0.5);
+  wire1 = 1.0 - smoothstep(0.0, 0.04, wire1);
+  float wire2 = abs(fract(vUv.y * 80.0) - 0.5);
+  wire2 = 1.0 - smoothstep(0.0, 0.02, wire2);
+  float wireLines = max(wire1, wire2);
 
-  // Data stream pulses
-  float pulse1 = sin(vUv.y * 60.0 - uTime * 5.0);
-  pulse1 = smoothstep(0.92, 1.0, pulse1) * 0.7;
-  float pulse2 = sin(vUv.x * 30.0 + vUv.y * 20.0 - uTime * 2.5);
-  pulse2 = smoothstep(0.88, 1.0, pulse2) * 0.5;
-  float pulse3 = sin((vUv.x - vUv.y) * 40.0 - uTime * 3.5);
-  pulse3 = smoothstep(0.90, 1.0, pulse3) * 0.4;
+  // Pulse on pink lines
+  float pulse = sin(vUv.x * 30.0 + uTime * 4.0) * 0.5 + 0.5;
+  pulse = smoothstep(0.7, 1.0, pulse) * 0.4;
 
-  vec3 pulseGlow =
-    (uColorCyan * pulse1) +
-    (uColorBlue * pulse2) +
-    (uColorRed * pulse3 * 0.6);
+  // Dark blue core — inner glow from normal
+  float rim = 1.0 - max(dot(viewDir, normal), 0.0);
+  float coreRing = pow(rim, 2.5) * 0.5;
 
   // Compose
-  vec3 diffuse = baseColor * (mainDiff + fillDiff + 0.08);
-  vec3 highlight = vec3(0.9, 0.95, 1.0) * spec * 1.2;
-  vec3 finalColor = diffuse + energyColor * energyPulse * 0.6 + highlight + rimLight + pulseGlow;
+  vec3 diffuse = baseColor * (mainDiff * 0.15 + 0.05);
+  vec3 wireColor = uColorPink * (wireLines * 1.8 + pulse);
+  vec3 specHighlight = vec3(1.0, 0.9, 1.0) * spec * 1.5;
+  vec3 coreGlow = uColorCore * coreRing;
 
-  // Subtle vignette via world position
-  float vignette = 1.0 - smoothstep(0.0, 2.5, length(vWorldPosition) * 0.15);
-  finalColor *= vignette;
+  vec3 finalColor = diffuse + wireColor + specHighlight + coreGlow;
 
   gl_FragColor = vec4(finalColor, 1.0);
 }
@@ -123,14 +77,14 @@ varying float vAlpha;
 
 void main() {
   vec3 pos = position;
-  pos.y += sin(uTime * aSpeed + pos.x * 2.0) * 0.08;
-  pos.x += cos(uTime * aSpeed * 0.7 + pos.y * 1.5) * 0.06;
+  pos.y += sin(uTime * aSpeed + pos.x * 2.0) * 0.06;
+  pos.x += cos(uTime * aSpeed * 0.7 + pos.y * 1.5) * 0.04;
 
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = aSize * (300.0 / -mvPosition.z);
+  gl_PointSize = aSize * (250.0 / -mvPosition.z);
   gl_Position = projectionMatrix * mvPosition;
 
-  vAlpha = 0.3 + 0.3 * sin(uTime * aSpeed * 2.0);
+  vAlpha = 0.4 + 0.4 * sin(uTime * aSpeed * 2.0);
 }
 `
 
@@ -141,7 +95,7 @@ varying float vAlpha;
 void main() {
   float d = length(gl_PointCoord - vec2(0.5));
   if (d > 0.5) discard;
-  float alpha = (1.0 - d * 2.0) * vAlpha;
+  float alpha = (1.0 - d * 2.0) * vAlpha * 0.6;
   gl_FragColor = vec4(uColor, alpha);
 }
 `
@@ -162,9 +116,8 @@ function NeuralOrb() {
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uColorCyan: { value: new THREE.Color('#00e5ff') },
-      uColorBlue: { value: new THREE.Color('#2E8EEA') },
-      uColorRed: { value: new THREE.Color('#DD2C2C') },
+      uColorPink: { value: new THREE.Color('#FF1493') },   // hot pink lines
+      uColorCore: { value: new THREE.Color('#1C3B8B') },   // dark blue core
     }),
     [],
   )
@@ -177,25 +130,23 @@ function NeuralOrb() {
       matRef.current.uniforms.uTime.value = t
     }
 
-    mouseTarget.current.x = mouse.x * 0.002
-    mouseTarget.current.y = mouse.y * 0.002
+    mouseTarget.current.x = mouse.x * 0.0015
+    mouseTarget.current.y = mouse.y * 0.0015
 
-    // Slow majestic rotation
-    meshRef.current.rotation.y += 0.0008
+    // Slow rotation — centered, no drift
+    meshRef.current.rotation.y += 0.0007
     meshRef.current.rotation.x += 0.0004
-    meshRef.current.rotation.z += 0.0003
 
-    // Smooth parallax
     smoothRot.current.x += 0.04 * (mouseTarget.current.y - smoothRot.current.x)
     smoothRot.current.y += 0.04 * (mouseTarget.current.x - smoothRot.current.y)
 
-    meshRef.current.rotation.x += smoothRot.current.x * 0.25
-    meshRef.current.rotation.y += smoothRot.current.y * 0.25
+    meshRef.current.rotation.x += smoothRot.current.x * 0.2
+    meshRef.current.rotation.y += smoothRot.current.y * 0.2
   })
 
   return (
-    <Float speed={0.4} rotationIntensity={0.08} floatIntensity={0.12}>
-      <mesh ref={meshRef} geometry={geometry} scale={0.65} castShadow>
+    <Float speed={0.35} rotationIntensity={0.05} floatIntensity={0.08}>
+      <mesh ref={meshRef} geometry={geometry} scale={0.7} castShadow>
         <shaderMaterial
           ref={matRef}
           vertexShader={vertexShader}
@@ -208,7 +159,7 @@ function NeuralOrb() {
 }
 
 function Particles() {
-  const count = 300
+  const count = 250
   const pointsRef = useRef<THREE.Points>(null)
 
   const { positions, sizes, speeds } = useMemo(() => {
@@ -219,14 +170,14 @@ function Particles() {
     for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 2
       const phi = Math.acos(2 * Math.random() - 1)
-      const r = 2.5 + Math.random() * 2.0
+      const r = 2.8 + Math.random() * 2.2
 
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
       positions[i * 3 + 2] = r * Math.cos(phi)
 
-      sizes[i] = 0.5 + Math.random() * 2.0
-      speeds[i] = 0.3 + Math.random() * 0.8
+      sizes[i] = 0.4 + Math.random() * 1.5
+      speeds[i] = 0.3 + Math.random() * 0.7
     }
 
     return { positions, sizes, speeds }
@@ -235,7 +186,7 @@ function Particles() {
   const particleUniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uColor: { value: new THREE.Color('#2E8EEA') },
+      uColor: { value: new THREE.Color('#FF1493') }, // pink particles
     }),
     [],
   )
@@ -246,8 +197,7 @@ function Particles() {
       mat.uniforms.uTime.value = clock.getElapsedTime()
     }
     if (pointsRef.current) {
-      pointsRef.current.rotation.y += 0.0003
-      pointsRef.current.rotation.x += 0.0001
+      pointsRef.current.rotation.y += 0.0002
     }
   })
 
@@ -279,7 +229,7 @@ export default function FractalOrb() {
         gl={{ antialias: true, alpha: false }}
       >
         <color attach="background" args={['#000000']} />
-        <ambientLight intensity={0.04} />
+        <ambientLight intensity={0.03} />
         <NeuralOrb />
         <Particles />
       </Canvas>
