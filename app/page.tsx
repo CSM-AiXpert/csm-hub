@@ -7,6 +7,8 @@ import { ArrowRight } from 'lucide-react'
 
 const NEON_TEAL = '#22D3EE'
 const NEON_GREEN = '#39FF14'
+const CF_BLUE = '#2E8EEA'
+const CF_RED = '#DD2C2C'
 
 const tiles = [
   {
@@ -29,7 +31,6 @@ const tiles = [
     logoAlt: 'CoastaFlow',
     logoSrc2: '/coastaclaw-logo.png',
     logoAlt2: 'CoastaClaw',
-    nameColor: NEON_TEAL,
     borderColor: 'rgba(46, 142, 234, 0.22)',
     borderHColor: 'rgba(46, 142, 234, 0.65)',
     glowColor: 'rgba(46, 142, 234, 0.1)',
@@ -47,6 +48,9 @@ const tiles = [
     glowColor: 'rgba(129, 140, 248, 0.1)',
   },
 ]
+
+// Top position for the text content block — same for all tiles so taglines align
+const CONTENT_TOP = 175
 
 export default function LandingHub() {
   return (
@@ -83,11 +87,7 @@ export default function LandingHub() {
             }} />
             <span className="text-xs font-semibold tracking-[0.18em] uppercase" style={{ color: NEON_TEAL }}>
               Coastal{' '}
-              <span style={{
-                color: '#FF0000',
-                animation: 'rainbow-solutions 4s linear infinite',
-                display: 'inline-block',
-              }}>
+              <span style={{ color: '#FF0000', animation: 'rainbow-solutions 4s linear infinite', display: 'inline-block' }}>
                 Solutions
               </span>
               {' '}Media
@@ -113,7 +113,7 @@ export default function LandingHub() {
           </motion.p>
         </header>
 
-        {/* Tiles — shorter cards, names+descriptions grouped */}
+        {/* Tiles */}
         <main className="flex-1 flex items-start justify-center px-8 pb-16">
           <div className="flex flex-wrap items-start justify-center gap-16">
 
@@ -133,15 +133,15 @@ export default function LandingHub() {
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
               >
+                {/* Card — position relative so inner absolute works */}
                 <div
-                  className="flex flex-col items-center text-center px-5 pt-8 pb-6"
+                  className="relative text-center"
                   style={{
                     background: 'rgba(0, 0, 0, 0.62)',
                     border: `1px solid ${tile.borderColor}`,
                     borderRadius: '18px',
                     aspectRatio: '3 / 4',
                     transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    position: 'relative',
                     overflow: 'hidden',
                   }}
                   onMouseEnter={(e) => {
@@ -161,86 +161,77 @@ export default function LandingHub() {
                 >
                   {/* Top glow */}
                   <div
-                    className="pointer-events-none absolute top-0 left-0 right-0"
+                    className="pointer-events-none absolute"
                     style={{
+                      top: 0, left: 0, right: 0,
                       height: '25%',
                       background: `radial-gradient(ellipse at 50% 0%, ${tile.glowColor} 0%, transparent 70%)`,
+                      zIndex: 1,
                     }}
                   />
 
-                  {/* Logos at top */}
-                  <div className="relative z-10 mb-3" style={{ width: 120, height: 72 }}>
-                    <Image
-                      src={tile.logoSrc}
-                      alt={tile.logoAlt}
-                      fill
-                      className="object-contain"
-                      sizes="120px"
-                    />
+                  {/* Logos — top area */}
+                  <div className="absolute left-0 right-0 flex flex-col items-center z-10" style={{ top: 16 }}>
+                    <div style={{ width: 120, height: 72, position: 'relative' }}>
+                      <Image src={tile.logoSrc} alt={tile.logoAlt} fill className="object-contain" sizes="120px" />
+                    </div>
+                    {tile.logoSrc2 && (
+                      <div style={{ width: 96, height: 60, position: 'relative', marginTop: 8 }}>
+                        <Image src={tile.logoSrc2} alt={tile.logoAlt2!} fill className="object-contain" sizes="96px" />
+                      </div>
+                    )}
                   </div>
 
-                  {tile.logoSrc2 && (
-                    <div className="relative z-10 mb-3" style={{ width: 96, height: 60 }}>
-                      <Image
-                        src={tile.logoSrc2}
-                        alt={tile.logoAlt2!}
-                        fill
-                        className="object-contain"
-                        sizes="96px"
+                  {/* Text content block — ALL tiles: same top position */}
+                  <div
+                    className="absolute left-0 right-0 flex flex-col items-center px-4"
+                    style={{ top: CONTENT_TOP }}
+                  >
+                    {/* Divider */}
+                    <div className="w-8 h-px rounded-full mb-4" style={{ background: tile.borderColor }} />
+
+                    {/* Tagline — neon teal */}
+                    <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-2 whitespace-nowrap" style={{ color: NEON_TEAL }}>
+                      {tile.tagline}
+                    </p>
+
+                    {/* Brand name */}
+                    {tile.nameText ? (
+                      <h2 className="text-sm font-bold font-display leading-tight mb-2 px-1" style={{ color: tile.nameColor }}>
+                        {tile.nameText}
+                      </h2>
+                    ) : (
+                      <div className="flex flex-col items-center gap-1 mb-2">
+                        <h2 className="text-sm font-bold font-display leading-tight">
+                          <span style={{ color: CF_BLUE }}>Coasta</span>
+                          <span style={{ color: CF_BLUE }}>Flow</span>
+                        </h2>
+                        <h2 className="text-sm font-bold font-display leading-tight">
+                          <span style={{ color: CF_BLUE }}>Coasta</span>
+                          <span style={{ color: CF_RED }}>Claw</span>
+                        </h2>
+                      </div>
+                    )}
+
+                    {/* Description */}
+                    <p className="text-[11px] leading-relaxed px-1 mb-3" style={{ color: 'rgba(34, 211, 238, 0.65)' }}>
+                      {tile.description}
+                    </p>
+
+                    {/* Enter */}
+                    <div
+                      className="flex items-center gap-1.5 transition-all duration-300"
+                      style={{ color: NEON_GREEN }}
+                    >
+                      <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: NEON_GREEN }}>
+                        Enter
+                      </span>
+                      <ArrowRight
+                        className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"
+                        style={{ color: NEON_GREEN }}
                       />
                     </div>
-                  )}
-
-                  {/* Spacer to center text block */}
-                  <div className="flex-1" />
-
-                  {/* Divider */}
-                  <div className="w-8 h-px rounded-full mb-4" style={{ background: tile.borderColor }} />
-
-                  {/* Tagline — neon teal */}
-                  <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-2" style={{ color: NEON_TEAL }}>
-                    {tile.tagline}
-                  </p>
-
-                  {/* Brand name */}
-                  {tile.nameText ? (
-                    <h2 className="text-sm font-bold font-display leading-tight mb-2 px-1" style={{ color: tile.nameColor }}>
-                      {tile.nameText}
-                    </h2>
-                  ) : (
-                    <div className="flex flex-col items-center gap-1 mb-2">
-                      <h2 className="text-sm font-bold font-display leading-tight">
-                        <span className="text-cf-blue">Coasta</span>
-                        <span style={{ color: NEON_TEAL }}>Flow</span>
-                      </h2>
-                      <h2 className="text-sm font-bold font-display leading-tight">
-                        <span className="text-cf-blue">Coasta</span>
-                        <span className="text-cf-red">Claw</span>
-                      </h2>
-                    </div>
-                  )}
-
-                  {/* Description — neon teal */}
-                  <p className="text-[11px] leading-relaxed px-1 mb-3" style={{ color: 'rgba(34, 211, 238, 0.65)' }}>
-                    {tile.description}
-                  </p>
-
-                  {/* Enter — neon green */}
-                  <div
-                    className="flex items-center gap-1.5 transition-all duration-300"
-                    style={{ color: NEON_GREEN }}
-                  >
-                    <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: NEON_GREEN }}>
-                      Enter
-                    </span>
-                    <ArrowRight
-                      className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"
-                      style={{ color: NEON_GREEN }}
-                    />
                   </div>
-
-                  {/* Bottom spacer */}
-                  <div className="flex-1" />
                 </div>
               </motion.a>
             ))}
