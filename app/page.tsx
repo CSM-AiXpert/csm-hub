@@ -71,10 +71,18 @@ export default function LandingHub() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 mb-8"
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8"
+            style={{
+              background: 'rgba(20, 184, 166, 0.08)',
+              border: '1px solid rgba(20, 184, 166, 0.35)',
+              boxShadow: '0 0 20px rgba(20, 184, 166, 0.2), 0 0 40px rgba(20, 184, 166, 0.08)',
+            }}
           >
-            <span className="w-2 h-2 rounded-full animate-flash-red" />
-            <span className="text-xs font-semibold tracking-[0.18em] uppercase text-white/50">
+            <span className="w-2 h-2 rounded-full" style={{
+              background: '#22D3EE',
+              boxShadow: '0 0 8px #22D3EE, 0 0 16px #22D3EE',
+            }} />
+            <span className="text-xs font-semibold tracking-[0.18em] uppercase" style={{ color: '#22D3EE' }}>
               Coastal Solutions Media
             </span>
           </motion.div>
