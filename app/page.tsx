@@ -50,7 +50,7 @@ const tiles = [
 ]
 
 // Top position for the text content block — same for all tiles so taglines align
-const CONTENT_TOP = 175
+const CONTENT_TOP = 170
 
 export default function LandingHub() {
   return (
@@ -69,23 +69,23 @@ export default function LandingHub() {
       <div className="relative z-10 min-h-screen flex flex-col">
 
         {/* Header */}
-        <header className="pt-12 pb-8 text-center shrink-0">
+        <header className="pt-8 pb-6 text-center shrink-0 px-4">
           <motion.div
-            initial={{ opacity: 0, y: -16 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8"
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-6"
             style={{
               background: 'rgba(20, 184, 166, 0.08)',
               border: '1px solid rgba(20, 184, 166, 0.35)',
               boxShadow: '0 0 20px rgba(20, 184, 166, 0.2), 0 0 40px rgba(20, 184, 166, 0.08)',
             }}
           >
-            <span className="w-2 h-2 rounded-full" style={{
+            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{
               background: NEON_TEAL,
-              boxShadow: `0 0 8px ${NEON_TEAL}, 0 0 16px ${NEON_TEAL}`,
+              boxShadow: `0 0 6px ${NEON_TEAL}, 0 0 12px ${NEON_TEAL}`,
             }} />
-            <span className="text-xs font-semibold tracking-[0.18em] uppercase" style={{ color: NEON_TEAL }}>
+            <span className="text-[10px] font-semibold tracking-[0.16em] uppercase" style={{ color: NEON_TEAL }}>
               Coastal{' '}
               <span style={{ color: '#FF0000', animation: 'rainbow-solutions 4s linear infinite', display: 'inline-block' }}>
                 Solutions
@@ -95,27 +95,28 @@ export default function LandingHub() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 leading-tight tracking-tight font-display"
+            className="font-display font-bold text-white mb-3 leading-tight tracking-tight"
+            style={{ fontSize: 'clamp(2.2rem, 8vw, 5rem)' }}
           >
             Choose Your <span className="text-gradient-hero">Experience</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-sm md:text-base text-white/40 font-light tracking-wide max-w-xs mx-auto"
+            className="text-xs text-white/40 font-light tracking-wide max-w-[200px] mx-auto"
           >
             Powered by Coastal Solutions Media
           </motion.p>
         </header>
 
-        {/* Tiles */}
-        <main className="flex-1 flex items-start justify-center px-8 pb-16">
-          <div className="flex flex-wrap items-start justify-center gap-16">
+        {/* Tiles — mobile-first: stacked on mobile, row on tablet+ */}
+        <main className="flex-1 flex items-start justify-center px-4 pb-12">
+          <div className="flex flex-col items-center gap-8 w-full max-w-[300px] sm:max-w-[580px] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8 lg:max-w-[820px] xl:max-w-[900px]">
 
             {tiles.map((tile, i) => (
               <motion.a
@@ -123,9 +124,9 @@ export default function LandingHub() {
                 href={tile.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group no-underline flex-shrink-0"
-                style={{ width: 'clamp(200px, 20vw, 250px)' }}
-                initial={{ opacity: 0, y: 70 }}
+                className="group no-underline w-full sm:flex-1"
+                style={{ maxWidth: '300px', minWidth: '200px' }}
+                initial={{ opacity: 0, y: 60 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.9,
@@ -133,7 +134,7 @@ export default function LandingHub() {
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
               >
-                {/* Card — position relative so inner absolute works */}
+                {/* Card */}
                 <div
                   className="relative text-center"
                   style={{
@@ -148,7 +149,7 @@ export default function LandingHub() {
                     const el = e.currentTarget as HTMLDivElement
                     el.style.border = `1px solid ${tile.borderHColor}`
                     el.style.boxShadow = `0 0 70px ${tile.glowColor}, 0 30px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06)`
-                    el.style.transform = 'translateY(-12px) scale(1.03)'
+                    el.style.transform = 'translateY(-10px) scale(1.03)'
                     el.style.background = 'rgba(0, 0, 0, 0.78)'
                   }}
                   onMouseLeave={(e) => {
@@ -170,11 +171,11 @@ export default function LandingHub() {
                     }}
                   />
 
-                  {/* Logos — centered in the card */}
+                  {/* Logos — centered */}
                   <div
                     className="absolute z-10"
                     style={{
-                      top: 16,
+                      top: 14,
                       left: 0,
                       right: 0,
                       display: 'flex',
@@ -182,41 +183,41 @@ export default function LandingHub() {
                       alignItems: 'center',
                     }}
                   >
-                    <div style={{ width: 120, height: 72, position: 'relative' }}>
-                      <Image src={tile.logoSrc} alt={tile.logoAlt} fill className="object-contain" sizes="120px" />
+                    <div style={{ width: 110, height: 68, position: 'relative' }}>
+                      <Image src={tile.logoSrc} alt={tile.logoAlt} fill className="object-contain" sizes="110px" />
                     </div>
                     {tile.logoSrc2 && (
-                      <div style={{ width: 96, height: 60, position: 'relative', marginTop: 8 }}>
-                        <Image src={tile.logoSrc2} alt={tile.logoAlt2!} fill className="object-contain" sizes="96px" />
+                      <div style={{ width: 88, height: 56, position: 'relative', marginTop: 6 }}>
+                        <Image src={tile.logoSrc2} alt={tile.logoAlt2!} fill className="object-contain" sizes="88px" />
                       </div>
                     )}
                   </div>
 
-                  {/* Text content block — ALL tiles: same top position */}
+                  {/* Text content block — fixed top position */}
                   <div
-                    className="absolute left-0 right-0 flex flex-col items-center px-4"
+                    className="absolute left-0 right-0 flex flex-col items-center px-3"
                     style={{ top: CONTENT_TOP }}
                   >
                     {/* Divider */}
-                    <div className="w-8 h-px rounded-full mb-4" style={{ background: tile.borderColor }} />
+                    <div className="w-7 h-px rounded-full mb-3" style={{ background: tile.borderColor }} />
 
-                    {/* Tagline — neon teal */}
-                    <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-2 whitespace-nowrap" style={{ color: NEON_TEAL }}>
+                    {/* Tagline */}
+                    <p className="text-[8px] font-bold tracking-[0.2em] uppercase mb-1.5 whitespace-nowrap" style={{ color: NEON_TEAL }}>
                       {tile.tagline}
                     </p>
 
                     {/* Brand name */}
                     {tile.nameText ? (
-                      <h2 className="text-sm font-bold font-display leading-tight mb-2 px-1" style={{ color: tile.nameColor }}>
+                      <h2 className="text-xs font-bold font-display leading-tight mb-1.5 px-1" style={{ color: tile.nameColor }}>
                         {tile.nameText}
                       </h2>
                     ) : (
-                      <div className="flex flex-col items-center gap-1 mb-2">
-                        <h2 className="text-sm font-bold font-display leading-tight">
+                      <div className="flex flex-col items-center gap-0.5 mb-1.5">
+                        <h2 className="text-xs font-bold font-display leading-tight">
                           <span style={{ color: CF_BLUE }}>Coasta</span>
                           <span style={{ color: CF_BLUE }}>Flow</span>
                         </h2>
-                        <h2 className="text-sm font-bold font-display leading-tight">
+                        <h2 className="text-xs font-bold font-display leading-tight">
                           <span style={{ color: CF_BLUE }}>Coasta</span>
                           <span style={{ color: CF_RED }}>Claw</span>
                         </h2>
@@ -224,20 +225,17 @@ export default function LandingHub() {
                     )}
 
                     {/* Description */}
-                    <p className="text-[11px] leading-relaxed px-1 mb-3" style={{ color: 'rgba(34, 211, 238, 0.65)' }}>
+                    <p className="text-[10px] leading-relaxed px-1 mb-2" style={{ color: 'rgba(34, 211, 238, 0.65)' }}>
                       {tile.description}
                     </p>
 
                     {/* Enter */}
-                    <div
-                      className="flex items-center gap-1.5 transition-all duration-300"
-                      style={{ color: NEON_GREEN }}
-                    >
-                      <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: NEON_GREEN }}>
+                    <div className="flex items-center gap-1 transition-all duration-300" style={{ color: NEON_GREEN }}>
+                      <span className="text-[9px] font-bold tracking-widest uppercase" style={{ color: NEON_GREEN }}>
                         Enter
                       </span>
                       <ArrowRight
-                        className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"
+                        className="w-2.5 h-2.5 transition-transform duration-300 group-hover:translate-x-1"
                         style={{ color: NEON_GREEN }}
                       />
                     </div>
@@ -250,8 +248,8 @@ export default function LandingHub() {
         </main>
 
         {/* Footer */}
-        <footer className="pb-10 text-center shrink-0">
-          <p className="text-xs text-white/20 tracking-wide">
+        <footer className="pb-8 text-center shrink-0">
+          <p className="text-[10px] text-white/20 tracking-wide">
             &copy; {new Date().getFullYear()} Coastal Solutions Media. All rights reserved.
           </p>
         </footer>
