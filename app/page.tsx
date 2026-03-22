@@ -208,11 +208,16 @@ export default function LandingHub() {
                       {tile.nameText}
                     </h2>
                   ) : (
-                    <h2 className="text-sm font-bold font-display leading-tight mb-2">
-                      <span className="text-cf-blue">CoastaFlow</span>
-                      <span className="text-white/50 mx-1">+</span>
-                      <span className="text-cf-red">CoastaClaw</span>
-                    </h2>
+                    <div className="flex flex-col items-center gap-1 mb-2">
+                      <h2 className="text-sm font-bold font-display leading-tight">
+                        <span className="text-cf-blue">Coasta</span>
+                        <span style={{ color: NEON_TEAL }}>Flow</span>
+                      </h2>
+                      <h2 className="text-sm font-bold font-display leading-tight">
+                        <span className="text-cf-blue">Coasta</span>
+                        <span className="text-cf-red">Claw</span>
+                      </h2>
+                    </div>
                   )}
 
                   {/* Description — neon teal */}
