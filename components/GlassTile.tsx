@@ -6,18 +6,16 @@ import { ReactNode } from 'react'
 
 interface GlassTileProps {
   logo: ReactNode
-  title: string
-  titleAccent?: string | null
+  title: ReactNode
   description: string
   url: string
-  accentColor?: 'blue' | 'teal' | 'red'
+  accentColor?: 'blue' | 'teal' | 'red' | 'periwinkle'
   index: number
 }
 
 export default function GlassTile({
   logo,
   title,
-  titleAccent,
   description,
   url,
   accentColor = 'blue',
@@ -29,27 +27,40 @@ export default function GlassTile({
       glow: 'rgba(46, 142, 234, 0.4)',
       border: 'rgba(46, 142, 234, 0.15)',
       hoverBorder: 'rgba(46, 142, 234, 0.4)',
-      gradient: 'from-cf-blue/20 to-cf-blue/5',
       cta: 'text-cf-blue/80',
       ctaHover: 'text-cf-blue',
+      logoBg: 'from-cf-blue/20 to-cf-blue/5',
+      logoBorder: 'rgba(46, 142, 234, 0.2)',
     },
     teal: {
       text: 'text-cyan-400',
       glow: 'rgba(20, 184, 166, 0.4)',
       border: 'rgba(20, 184, 166, 0.15)',
       hoverBorder: 'rgba(20, 184, 166, 0.4)',
-      gradient: 'from-cyan-500/15 to-cyan-500/5',
       cta: 'text-cyan-400/80',
       ctaHover: 'text-cyan-400',
+      logoBg: 'from-cyan-500/15 to-cyan-500/5',
+      logoBorder: 'rgba(20, 184, 166, 0.2)',
     },
     red: {
       text: 'text-cf-red',
       glow: 'rgba(221, 44, 44, 0.4)',
       border: 'rgba(221, 44, 44, 0.15)',
       hoverBorder: 'rgba(221, 44, 44, 0.4)',
-      gradient: 'from-cf-red/15 to-cf-red/5',
       cta: 'text-cf-red/80',
       ctaHover: 'text-cf-red',
+      logoBg: 'from-cf-red/15 to-cf-red/5',
+      logoBorder: 'rgba(221, 44, 44, 0.2)',
+    },
+    periwinkle: {
+      text: 'text-indigo-400',
+      glow: 'rgba(129, 140, 248, 0.4)',
+      border: 'rgba(129, 140, 248, 0.15)',
+      hoverBorder: 'rgba(129, 140, 248, 0.4)',
+      cta: 'text-indigo-400/80',
+      ctaHover: 'text-indigo-400',
+      logoBg: 'from-indigo-500/15 to-indigo-500/5',
+      logoBorder: 'rgba(129, 140, 248, 0.2)',
     },
   }
 
@@ -72,20 +83,22 @@ export default function GlassTile({
       whileTap={{ scale: 0.98 }}
     >
       {/* Logo mark */}
-      <div className="logo-mark mb-8">
+      <div
+        className="logo-mark mb-8 bg-gradient-to-br border"
+        style={{
+          background: `linear-gradient(135deg, ${colors.glow.replace('0.4', '0.25')}, transparent)`,
+          borderColor: colors.logoBorder,
+          borderWidth: '1px',
+          borderStyle: 'solid',
+        }}
+      >
         {logo}
       </div>
 
       {/* Title */}
-      <h2 className={`text-2xl md:text-3xl font-bold font-display mb-3 tracking-tight ${colors.text}`}>
+      <h2 className={`text-2xl md:text-3xl font-bold font-display mb-3 tracking-tight ${colors.text} leading-tight`}>
         {title}
       </h2>
-
-      {titleAccent != null && (
-        <p className={`text-sm font-semibold tracking-[0.15em] uppercase mb-4 ${colors.text} opacity-70`}>
-          {titleAccent}
-        </p>
-      )}
 
       {/* Description */}
       <p className="text-sm md:text-base text-white/55 leading-relaxed max-w-xs mb-8 flex-1">
@@ -93,7 +106,7 @@ export default function GlassTile({
       </p>
 
       {/* CTA */}
-      <div className={`tile-cta ${colors.cta} group-hover:${colors.ctaHover}`}>
+      <div className={`tile-cta ${colors.cta}`}>
         <span>Enter</span>
         <ArrowRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1" />
       </div>
