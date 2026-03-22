@@ -50,7 +50,7 @@ const tiles = [
 ]
 
 // Top position for the text content block — same for all tiles so taglines align
-const CONTENT_TOP = 170
+const CONTENT_TOP = 140
 
 export default function LandingHub() {
   return (
@@ -116,7 +116,7 @@ export default function LandingHub() {
 
         {/* Tiles — mobile-first: stacked on mobile, row on tablet+ */}
         <main className="flex-1 flex items-start justify-center px-4 pb-12">
-          <div className="flex flex-col items-center gap-8 w-full max-w-[300px] sm:max-w-[580px] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8 lg:max-w-[820px] xl:max-w-[900px]">
+          <div className="flex flex-col items-center gap-8 w-full max-w-[240px] sm:max-w-[580px] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8 lg:max-w-[820px] xl:max-w-[900px]">
 
             {tiles.map((tile, i) => (
               <motion.a
@@ -125,7 +125,7 @@ export default function LandingHub() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group no-underline w-full sm:flex-1"
-                style={{ maxWidth: '300px', minWidth: '200px' }}
+                style={{ maxWidth: '250px', minWidth: '175px' }}
                 initial={{ opacity: 0, y: 60 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -141,7 +141,7 @@ export default function LandingHub() {
                     background: 'rgba(0, 0, 0, 0.62)',
                     border: `1px solid ${tile.borderColor}`,
                     borderRadius: '18px',
-                    aspectRatio: '3 / 4',
+                    aspectRatio: '5 / 7',
                     transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     overflow: 'hidden',
                   }}
@@ -183,12 +183,12 @@ export default function LandingHub() {
                       alignItems: 'center',
                     }}
                   >
-                    <div style={{ width: 110, height: 68, position: 'relative' }}>
-                      <Image src={tile.logoSrc} alt={tile.logoAlt} fill className="object-contain" sizes="110px" />
+                    <div style={{ width: 95, height: 60, position: 'relative' }}>
+                      <Image src={tile.logoSrc} alt={tile.logoAlt} fill className="object-contain" sizes="95px" />
                     </div>
                     {tile.logoSrc2 && (
-                      <div style={{ width: 88, height: 56, position: 'relative', marginTop: 6 }}>
-                        <Image src={tile.logoSrc2} alt={tile.logoAlt2!} fill className="object-contain" sizes="88px" />
+                      <div style={{ width: 75, height: 48, position: 'relative', marginTop: 5 }}>
+                        <Image src={tile.logoSrc2} alt={tile.logoAlt2!} fill className="object-contain" sizes="75px" />
                       </div>
                     )}
                   </div>
