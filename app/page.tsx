@@ -21,43 +21,28 @@ function LighthouseLogo() {
   )
 }
 
-function WaveIcon() {
+function FlowClawLogos() {
   return (
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M4 22 C10 14, 16 14, 22 22 C28 30, 34 30, 40 22"
-        stroke="#2E8EEA"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M4 28 C10 20, 16 20, 22 28 C28 36, 34 36, 40 28"
-        stroke="#2E8EEA"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.5"
-      />
-      <path
-        d="M8 18 C6 14, 4 14, 4 17 C4 20, 6 20, 8 18"
-        stroke="#DD2C2C"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.7"
-      />
-      <path
-        d="M36 18 C38 14, 40 14, 40 17 C40 20, 38 20, 36 18"
-        stroke="#DD2C2C"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.7"
-      />
-      <circle cx="22" cy="22" r="3" fill="#2E8EEA" opacity="0.9" />
-      <circle cx="22" cy="22" r="6" fill="none" stroke="#2E8EEA" strokeWidth="0.75" opacity="0.25" />
-    </svg>
+    <div className="flex items-center gap-3">
+      <div className="relative w-[60px] h-[48px] rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0">
+        <Image
+          src="/coastaflow-logo.jpg"
+          alt="CoastaFlow"
+          fill
+          className="object-contain"
+          sizes="60px"
+        />
+      </div>
+      <div className="relative w-[54px] h-[54px] rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0">
+        <Image
+          src="/coastaclaw-logo.jpg"
+          alt="CoastaClaw"
+          fill
+          className="object-contain"
+          sizes="54px"
+        />
+      </div>
+    </div>
   )
 }
 
@@ -74,7 +59,7 @@ const tiles = [
     accentColor: 'teal' as const,
   },
   {
-    logo: <WaveIcon />,
+    logo: <FlowClawLogos />,
     title: (
       <>
         <span className="text-cyan-400">Coasta</span>
