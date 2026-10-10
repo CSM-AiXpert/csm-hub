@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
 import * as THREE from 'three'
@@ -183,7 +183,8 @@ function Particles() {
   const count = 200
   const pointsRef = useRef<THREE.Points>(null)
 
-  const { positions, sizes, speeds } = useMemo(() => {
+  // Random geometry is initial component state, not a render calculation.
+  const [{ positions, sizes, speeds }] = useState(() => {
     const positions = new Float32Array(count * 3)
     const sizes = new Float32Array(count)
     const speeds = new Float32Array(count)
@@ -202,7 +203,7 @@ function Particles() {
     }
 
     return { positions, sizes, speeds }
-  }, [])
+  })
 
   const particleUniforms = useMemo(
     () => ({
