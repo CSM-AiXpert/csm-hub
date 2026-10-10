@@ -28,7 +28,7 @@ export default function LandingHub() {
         <div><h1>Coastal Solutions Media</h1><p>Solutions Beyond Horizons.</p></div>
       </header>
       <main id="main">
-        <a className="audit-button" href="https://www.coastalsolutionsmedia.com/free-growth-audit#request"><ScanLine size={23} aria-hidden="true" /><span><strong>Get Your Free Digital Audit</strong><small>Find your next growth opportunity.</small></span><ArrowRight size={19} aria-hidden="true" /></a>
+        <a className="audit-button" href="https://app.coastaflow.ai/widget/form/DgnYvfyPRgKgZS8gFqoY"><ScanLine size={23} aria-hidden="true" /><span><strong>Get Your Free Digital Audit</strong><small>Find your next growth opportunity.</small></span><ArrowRight size={19} aria-hidden="true" /></a>
         <section className="contact" aria-labelledby="contact-title">
           <div className="person"><h2 id="contact-title">Brian Pierce</h2><span>President / CEO</span></div>
           <div className="contact-buttons"><a href="tel:+16784165997"><Phone size={17} aria-hidden="true" /><span>Call Brian<small>(678) 416-5997</small></span></a><a href="mailto:brian@coastalsolutionsmedia.com"><Mail size={18} aria-hidden="true" /><span>Email Brian<small>Let’s talk business</small></span></a></div>
