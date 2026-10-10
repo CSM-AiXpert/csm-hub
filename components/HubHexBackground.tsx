@@ -66,6 +66,7 @@ export default function HubHexBackground() {
     const ease=(v:number)=>v*v*v*(v*(v*6-15)+10)
     const draw=(t:number)=>{
       if(!mesh)return
+      aimBeam() // re-aim every frame so load-time layout shifts never misalign the beam
       const sample:number[]=[]
       tiles.forEach((tile,i)=>{
         const phase=(t/tile.period+tile.phase)%1
@@ -102,8 +103,8 @@ export default function HubHexBackground() {
       mesh=new THREE.InstancedMesh(geometry,[face,side],tiles.length);mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh)
       start()
     }
-    resize();addEventListener('resize',resize);addEventListener('scroll',onScroll,{passive:true});reduced.addEventListener('change',start);document.addEventListener('visibilitychange',start)
-    return()=>{cancelAnimationFrame(frame);removeEventListener('resize',resize);removeEventListener('scroll',onScroll);reduced.removeEventListener('change',start);document.removeEventListener('visibilitychange',start);mesh?.dispose();for(const item of [geometry,face,side,floorMaterial,floor.geometry,renderer])item.dispose()}
+    resize();addEventListener('resize',resize);addEventListener('scroll',onScroll,{passive:true});addEventListener('load',onScroll);document.fonts?.ready.then(onScroll);reduced.addEventListener('change',start);document.addEventListener('visibilitychange',start)
+    return()=>{cancelAnimationFrame(frame);removeEventListener('resize',resize);removeEventListener('scroll',onScroll);removeEventListener('load',onScroll);reduced.removeEventListener('change',start);document.removeEventListener('visibilitychange',start);mesh?.dispose();for(const item of [geometry,face,side,floorMaterial,floor.geometry,renderer])item.dispose()}
   },[])
   return <canvas ref={ref} className="hex-canvas" aria-hidden="true" />
 }
