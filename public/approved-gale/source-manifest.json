@@ -1,0 +1,35 @@
+{
+  "version": "deep-brand-single-beam-20261016",
+  "approved": true,
+  "source": "/Users/brianpierce/Desktop/Gale Holdings - DIT and Island Boat Works",
+  "files": {
+    "review-assets/csm-background-kinetic.js": {
+      "sha256": "66de284c472a277fcad5c044cb86cef15ebb1219d0d5fb56f18e83d054dddc5f",
+      "bytes": 548463
+    },
+    "review-assets/review-background.js": {
+      "sha256": "016a8393372ab3ed8df47a11d9988e4ae29032e1a99cf5f0a2f0a9251d774089",
+      "bytes": 4503
+    },
+    "review-assets/proposal-polish.js": {
+      "sha256": "87079b39b85f3abcf6bad1a93abc02d28adaa910b1b370c240768485c64d12cb",
+      "bytes": 5624
+    },
+    "review-assets/proposal-polish.css": {
+      "sha256": "00932a9d19523420338c02425138378239ee5066c5e16eb7ffc3ca405e40b5fc",
+      "bytes": 8798
+    },
+    "review-assets/review.css": {
+      "sha256": "091152fbcee069f62cae6f473142485db472b0a3c81db906c78d9b3de7c3acb0",
+      "bytes": 26195
+    },
+    "review-assets/hex-fallback.svg": {
+      "sha256": "87d247eed893e19cbef02b9e3235b027dbb40ba7efb1bd36da373fb4bfabe921",
+      "bytes": 1934
+    },
+    "review-assets/brand/csm-logo.webp": {
+      "sha256": "40a40c75fa5b49f16387d92ff229db312aebe87bbc43782ac5ec431997e0800a",
+      "bytes": 51070
+    }
+  }
+}

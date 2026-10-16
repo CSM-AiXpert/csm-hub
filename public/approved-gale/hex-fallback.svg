@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="69.282" height="120" viewBox="0 0 69.282 120">
+  <!-- Static fallback for the CSM hex background: beveled pointy-top hex tiles (periwinkle / teal / copper rim light). -->
+  <defs>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8193ff" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#14b8a6" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#ea580c" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#010102"/>
+      <stop offset=".6" stop-color="#000000"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#687dff" stop-opacity=".16"/>
+      <stop offset=".5" stop-color="#14b8a6" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <g id="h">
+      <polygon points="0,-37 32.04,-18.5 32.04,18.5 0,37 -32.04,18.5 -32.04,-18.5" fill="url(#rim)"/>
+      <polygon points="0,-33 28.58,-16.5 28.58,16.5 0,33 -28.58,16.5 -28.58,-16.5" fill="#030304"/>
+      <polygon points="0,-30.5 26.41,-15.25 26.41,15.25 0,30.5 -26.41,15.25 -26.41,-15.25" fill="url(#face)"/>
+      <polygon points="0,-30.5 26.41,-15.25 26.41,15.25 0,30.5 -26.41,15.25 -26.41,-15.25" fill="none"/>
+      <polyline points="-26.41,-15.25 0,-30.5 26.41,-15.25" fill="none" stroke="#a9b6ff" stroke-opacity=".28" stroke-width=".8"/>
+    </g>
+  </defs>
+  <rect width="69.282" height="120" fill="#000"/>
+  <use href="#h" xlink:href="#h" x="0" y="0"/>
+  <use href="#h" xlink:href="#h" x="69.282" y="0"/>
+  <use href="#h" xlink:href="#h" x="34.641" y="60"/>
+  <use href="#h" xlink:href="#h" x="0" y="120"/>
+  <use href="#h" xlink:href="#h" x="69.282" y="120"/>
+</svg>

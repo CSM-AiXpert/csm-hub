@@ -1,0 +1,12 @@
+/* Frozen Gale source: deep-brand-single-beam-20261016. */
+html { background: #000 url('/approved-gale/hex-fallback.svg') repeat; background-size: clamp(95px,10vw,173px) auto; }
+body { background: transparent !important; }
+.hex-canvas { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:0; transition:opacity .6s ease; filter:none; mix-blend-mode:normal; }
+[data-background-state="webgl"] .hex-canvas { opacity:1; }
+.no-webgl .hex-canvas { display:none; }
+.gale-lighthouse-beam { position:fixed; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; overflow:hidden; mix-blend-mode:normal; filter:none; }
+.gale-beam-edge { opacity:.65; }
+.gale-beam-core { opacity:.7; }
+@media print { .hex-canvas,.gale-lighthouse-beam { display:none; } }
+
+.hub { position:relative; z-index:2; }
